@@ -1,0 +1,535 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --secondary: #64748b;
+    --danger: #dc2626;
+    --success: #16a34a;
+    --warning: #ea580c;
+    --bg: #f8fafc;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-light: #64748b;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 0;
+    border-bottom: 3px solid var(--primary);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.subtitle {
+    color: var(--text-light);
+    font-size: 1.1em;
+}
+
+/* NAVEGACIÓN */
+.menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-menu {
+    padding: 12px 20px;
+    border: 2px solid var(--border);
+    background: white;
+    color: var(--text);
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-menu:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.btn-menu.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* SECCIONES */
+.section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ESTADÍSTICAS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-label {
+    color: var(--text-light);
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* SECCIÓN HEADER */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-header h2 {
+    font-size: 1.8em;
+    color: var(--text);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* BOTONES */
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #475569;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+    padding: 8px 16px;
+    font-size: 0.9em;
+}
+
+.btn-danger:hover {
+    background-color: #991b1b;
+}
+
+/* FORMULARIOS */
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container.hidden {
+    display: none;
+}
+
+.form-container h3 {
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.form-buttons button {
+    flex: 1;
+}
+
+.select-full {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* TABLAS */
+.table-responsive {
+    overflow-x: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: #f1f5f9;
+    border-bottom: 2px solid var(--border);
+}
+
+.table th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ESTADO BADGE */
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.badge-active {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-inactivo {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-entrada {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-salida {
+    background-color: #fecaca;
+    color: #991b1b;
+}
+
+/* MOROSOS */
+.morosos-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.moroso-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.moroso-item:last-child {
+    border-bottom: none;
+}
+
+.moroso-nombre {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.moroso-detalles {
+    font-size: 0.95em;
+    color: var(--text-light);
+}
+
+.moroso-deuda {
+    text-align: right;
+    padding-top: 5px;
+}
+
+.moroso-total {
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--danger);
+}
+
+/* CUENTA DETALLE */
+.cuenta-detalle {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.cuenta-header {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid var(--border);
+}
+
+.cuenta-stat {
+    text-align: center;
+}
+
+.cuenta-stat-label {
+    color: var(--text-light);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.cuenta-stat-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.cuenta-stat-value.negativo {
+    color: var(--danger);
+}
+
+.cuenta-movimientos {
+    margin-top: 25px;
+}
+
+.cuenta-movimientos h4 {
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+.movimiento-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 100px 80px;
+    gap: 15px;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+.movimiento-row:last-child {
+    border-bottom: none;
+}
+
+.movimiento-fecha {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 0.9em;
+}
+
+.movimiento-desc {
+    color: var(--text-light);
+}
+
+.movimiento-mes {
+    font-size: 0.85em;
+    color: var(--secondary);
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.movimiento-cantidad {
+    font-weight: 700;
+    text-align: right;
+}
+
+.movimiento-cantidad.entrada {
+    color: var(--success);
+}
+
+.movimiento-cantidad.salida {
+    color: var(--danger);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .menu {
+        flex-direction: column;
+    }
+
+    .btn-menu {
+        width: 100%;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .button-group {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .table {
+        font-size: 0.9em;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+    }
+
+    .moroso-item {
+        grid-template-columns: 1fr;
+    }
+
+    .moroso-deuda {
+        text-align: left;
+    }
+
+    .movimiento-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .select-full {
+        max-width: 100%;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+}
+
+.empty-state-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.empty-state-text {
+    font-size: 1.1em;
+}

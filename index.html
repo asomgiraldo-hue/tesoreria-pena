@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Tesorería - Peña</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Control de Tesorería</h1>
+            <p class="subtitle">Gestión de cuotas y gastos de la peña</p>
+        </header>
+
+        <nav class="menu">
+            <button class="btn-menu active" data-menu="dashboard">📊 Dashboard</button>
+            <button class="btn-menu" data-menu="socios">👥 Socios</button>
+            <button class="btn-menu" data-menu="movimientos">📝 Movimientos</button>
+            <button class="btn-menu" data-menu="morosos">⚠️ Morosos</button>
+            <button class="btn-menu" data-menu="cuenta-socio">📋 Cuenta por Socio</button>
+        </nav>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Entradas</div>
+                    <div class="stat-value" id="totalEntradas">€0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Salidas</div>
+                    <div class="stat-value" id="totalSalidas">€0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Balance</div>
+                    <div class="stat-value" id="balance">€0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Socios</div>
+                    <div class="stat-value" id="totalSocios">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIOS -->
+        <section id="socios" class="section">
+            <div class="section-header">
+                <h2>Gestión de Socios</h2>
+                <button class="btn-primary" id="btnNuevoSocio">+ Nuevo Socio</button>
+            </div>
+
+            <div id="formNuevoSocio" class="form-container hidden">
+                <h3>Agregar Nuevo Socio</h3>
+                <form id="formSocio">
+                    <input type="text" id="nombreSocio" placeholder="Nombre del socio" required>
+                    <input type="email" id="emailSocio" placeholder="Email (opcional)">
+                    <input type="tel" id="telefonoSocio" placeholder="Teléfono (opcional)">
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Guardar</button>
+                        <button type="button" class="btn-secondary" id="btnCancelarSocio">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaSocios">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MOVIMIENTOS -->
+        <section id="movimientos" class="section">
+            <div class="section-header">
+                <h2>Movimientos</h2>
+                <div class="button-group">
+                    <button class="btn-primary" id="btnNuevaEntrada">📥 Nueva Entrada</button>
+                    <button class="btn-secondary" id="btnNuevaSalida">📤 Nueva Salida</button>
+                </div>
+            </div>
+
+            <!-- ENTRADA -->
+            <div id="formEntrada" class="form-container hidden">
+                <h3>Registrar Entrada (Cuota)</h3>
+                <form id="formMovEntrada">
+                    <select id="socioEntrada" required>
+                        <option value="">Selecciona un socio</option>
+                    </select>
+                    <input type="number" id="cantidadEntrada" placeholder="Cantidad (€)" step="0.01" required>
+                    <input type="month" id="mesEntrada" required>
+                    <textarea id="notasEntrada" placeholder="Notas (opcional)"></textarea>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Guardar Entrada</button>
+                        <button type="button" class="btn-secondary" id="btnCancelarEntrada">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- SALIDA -->
+            <div id="formSalida" class="form-container hidden">
+                <h3>Registrar Salida (Gasto)</h3>
+                <form id="formMovSalida">
+                    <input type="text" id="descripcionSalida" placeholder="Descripción del gasto" required>
+                    <input type="number" id="cantidadSalida" placeholder="Cantidad (€)" step="0.01" required>
+                    <input type="date" id="fechaSalida" required>
+                    <textarea id="notasSalida" placeholder="Notas (opcional)"></textarea>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Guardar Salida</button>
+                        <button type="button" class="btn-secondary" id="btnCancelarSalida">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Socio/Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaMovimientos">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MOROSOS -->
+        <section id="morosos" class="section">
+            <div class="section-header">
+                <h2>Socios Morosos</h2>
+                <button class="btn-primary" id="btnCopiarMorosos">📋 Copiar al Portapapeles</button>
+            </div>
+
+            <div id="listaMorosos" class="morosos-container">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </section>
+
+        <!-- CUENTA POR SOCIO -->
+        <section id="cuenta-socio" class="section">
+            <div class="section-header">
+                <h2>Cuenta por Socio</h2>
+                <select id="selectSocio" class="select-full">
+                    <option value="">Selecciona un socio</option>
+                </select>
+            </div>
+
+            <div id="cuentaSocioDetalle" class="cuenta-detalle">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
