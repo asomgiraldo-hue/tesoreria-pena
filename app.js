@@ -31,6 +31,10 @@ function inicializarEventos() {
     document.getElementById('btnCancelarSalida').addEventListener('click', ocultarFormularioSalida);
     document.getElementById('formMovSalida').addEventListener('submit', guardarSalida);
 
+    document.getElementById('btnAjusteBalance').addEventListener('click', mostrarFormularioAjuste);
+    document.getElementById('btnCancelarAjuste').addEventListener('click', ocultarFormularioAjuste);
+    document.getElementById('formMovAjuste').addEventListener('submit', guardarAjuste);
+
     // Morosos
     document.getElementById('btnCopiarMorosos').addEventListener('click', copiarMorosos);
 
@@ -165,6 +169,17 @@ function ocultarFormularioSalida() {
     document.getElementById('formMovSalida').reset();
 }
 
+function mostrarFormularioAjuste() {
+    document.getElementById('formAjuste').classList.remove('hidden');
+    document.getElementById('cantidadAjuste').focus();
+    document.getElementById('fechaAjuste').valueAsDate = new Date();
+}
+
+function ocultarFormularioAjuste() {
+    document.getElementById('formAjuste').classList.add('hidden');
+    document.getElementById('formMovAjuste').reset();
+}
+
 function actualizarSelectSocios(selectId) {
     const select = document.getElementById(selectId);
     const sociosActivos = socios.filter(s => s.activo);
@@ -235,6 +250,34 @@ function guardarSalida(e) {
     ocultarFormularioSalida();
 }
 
+function guardarAjuste(e) {
+    e.preventDefault();
+    
+    const cantidad = parseFloat(document.getElementById('cantidadAjuste').value);
+    const fecha = document.getElementById('fechaAjuste').value;
+    const notas = document.getElementById('notasAjuste').value.trim() || 'Ajuste de balance inicial';
+
+    if (!cantidad || !fecha) {
+        alert('Por favor, completa todos los campos obligatorios');
+        return;
+    }
+
+    const nuevoMovimiento = {
+        id: Date.now(),
+        tipo: 'ajuste',
+        descripcion: 'Ajuste de Balance',
+        cantidad: cantidad,
+        fecha: fecha,
+        notas: notas
+    };
+
+    movimientos.push(nuevoMovimiento);
+    guardarDatos();
+    actualizarTodo();
+    ocultarFormularioAjuste();
+    alert('✅ Ajuste de balance registrado correctamente');
+}
+
 function eliminarMovimiento(id) {
     if (confirm('¿Estás seguro de que deseas eliminar este movimiento?')) {
         movimientos = movimientos.filter(m => m.id !== id);
@@ -259,20 +302,26 @@ function actualizarTablaMovimientos() {
         let fecha = mov.fecha || mov.mes;
         let socioDescripcion = '';
         let cantidad = mov.cantidad;
+        let badge = '';
         
         if (mov.tipo === 'entrada') {
             const socio = socios.find(s => s.id === mov.socioId);
             socioDescripcion = socio ? socio.nombre : 'Socio eliminado';
-        } else {
+            badge = '<span class="badge badge-entrada">📥 Entrada</span>';
+        } else if (mov.tipo === 'salida') {
             socioDescripcion = mov.descripcion;
+            badge = '<span class="badge badge-salida">📤 Salida</span>';
+        } else if (mov.tipo === 'ajuste') {
+            socioDescripcion = mov.descripcion;
+            badge = '<span class="badge" style="background-color: #fcd34d; color: #78350f;">⚙️ Ajuste</span>';
         }
 
         fila.innerHTML = `
             <td>${fecha}</td>
-            <td><span class="badge badge-${mov.tipo}">${mov.tipo === 'entrada' ? '📥 Entrada' : '📤 Salida'}</span></td>
+            <td>${badge}</td>
             <td>${socioDescripcion}</td>
-            <td style="font-weight: 700; color: ${mov.tipo === 'entrada' ? '#16a34a' : '#dc2626'}">
-                ${mov.tipo === 'entrada' ? '+' : '-'}€${cantidad.toFixed(2)}
+            <td style="font-weight: 700; color: ${mov.tipo === 'salida' ? '#dc2626' : '#16a34a'}">
+                ${mov.tipo === 'salida' ? '-' : '+'}€${cantidad.toFixed(2)}
             </td>
             <td>
                 <button class="btn-danger" onclick="eliminarMovimiento(${mov.id})">Eliminar</button>
@@ -285,7 +334,7 @@ function actualizarTablaMovimientos() {
 // ===== DASHBOARD =====
 function actualizarDashboard() {
     const totalEntradas = movimientos
-        .filter(m => m.tipo === 'entrada')
+        .filter(m => m.tipo === 'entrada' || m.tipo === 'ajuste')
         .reduce((sum, m) => sum + m.cantidad, 0);
 
     const totalSalidas = movimientos
