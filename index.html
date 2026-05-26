@@ -87,6 +87,7 @@
                 <div class="button-group">
                     <button class="btn-primary" id="btnNuevaEntrada">📥 Nueva Entrada</button>
                     <button class="btn-secondary" id="btnNuevaSalida">📤 Nueva Salida</button>
+                    <button class="btn-secondary" id="btnAjusteBalance">⚙️ Ajuste Balance</button>
                 </div>
             </div>
 
@@ -118,6 +119,21 @@
                     <div class="form-buttons">
                         <button type="submit" class="btn-primary">Guardar Salida</button>
                         <button type="button" class="btn-secondary" id="btnCancelarSalida">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- AJUSTE BALANCE -->
+            <div id="formAjuste" class="form-container hidden">
+                <h3>Ajuste de Balance Inicial</h3>
+                <p style="color: #64748b; margin-bottom: 15px; font-size: 0.95em;">Registra el dinero que tiene la peña actualmente. Esto se usará como balance inicial.</p>
+                <form id="formMovAjuste">
+                    <input type="number" id="cantidadAjuste" placeholder="Cantidad (€)" step="0.01" required>
+                    <input type="date" id="fechaAjuste" required>
+                    <textarea id="notasAjuste" placeholder="Descripción (ej: Dinero en caja al inicio)"></textarea>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-primary">Guardar Ajuste</button>
+                        <button type="button" class="btn-secondary" id="btnCancelarAjuste">Cancelar</button>
                     </div>
                 </form>
             </div>
